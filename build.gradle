@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+group = 'com.k9rosie'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    flatDir {
+       dirs 'libs'
+   }
+}
+
+dependencies {
+    compile name: 'novswar-1.0.0-24pa'
+}
+
+processResources {
+  filter {
+    line ->
+    line
+    .replace('${name}', project.name)
+    .replace('${version}', project.version)
+    .replace('${pluginMainClass}', "${project.group}.${project.name.toLowerCase()}.TeamDeathmatch")
+  }
+}
+
+jar {
+  from {
+    configurations.compile.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.13'
+}
