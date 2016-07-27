@@ -7,13 +7,16 @@ group = 'com.k9rosie'
 version = '1.0.0-SNAPSHOT'
 
 repositories {
+    mavenCentral()
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
     flatDir {
-       dirs 'libs'
+       dirs 'lib'
    }
 }
 
 dependencies {
-    compile name: 'novswar-1.0.0-24pa'
+    compile "org.bukkit:bukkit:1.10-R0.1-SNAPSHOT"
+    compile name: "novswar-1.0.0-24pa"
 }
 
 processResources {
@@ -22,15 +25,7 @@ processResources {
     line
     .replace('${name}', project.name)
     .replace('${version}', project.version)
-    .replace('${pluginMainClass}', "${project.group}.${project.name.toLowerCase()}.TeamDeathmatch")
-  }
-}
-
-jar {
-  from {
-    configurations.compile.collect {
-      it.isDirectory() ? it : zipTree(it)
-    }
+    .replace('${pluginMainClass}', "${project.group}.${project.name.toLowerCase()}.TeamDeathmatchPlugin")
   }
 }
 
