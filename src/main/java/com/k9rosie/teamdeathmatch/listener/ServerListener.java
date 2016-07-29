@@ -27,6 +27,6 @@ public class ServerListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onNovsWarPlayerKill(NovsWarPlayerKillEvent event) {
-        event.getKillerTeam().incrementScore();
+        event.getKillerTeam().getNovsScore().incrementScore();
     }
 }
