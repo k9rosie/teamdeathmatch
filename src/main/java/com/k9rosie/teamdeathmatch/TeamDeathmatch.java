@@ -36,6 +36,10 @@ public class TeamDeathmatch implements Gamemode {
         return maxScore;
     }
 
+    public int getRounds() {
+        return 1;
+    }
+
     public String getGamemodeName() {
         return gamemodeName;
     }

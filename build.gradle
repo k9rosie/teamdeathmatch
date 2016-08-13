@@ -7,16 +7,18 @@ group = 'com.k9rosie'
 version = '1.0.0-SNAPSHOT'
 
 repositories {
-    mavenCentral()
-    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
-    flatDir {
-       dirs 'lib'
-   }
+    maven {
+        credentials {
+            username System.env.NEXUS_CREDENTIALS_USERNAME
+            password System.env.NEXUS_CREDENTIALS_PASSWORD
+        }
+        url "https://nexus.k9rosie.com/content/groups/public"
+    }
 }
 
 dependencies {
     compile "org.bukkit:bukkit:1.10-R0.1-SNAPSHOT"
-    compile name: "novswar-1.0.0-SNAPSHOT"
+    compile "com.k9rosie:novswar:1.0.0-SNAPSHOT"
 }
 
 processResources {
@@ -27,6 +29,19 @@ processResources {
     .replace('${version}', project.version)
     .replace('${pluginMainClass}', "${project.group}.${project.name.toLowerCase()}.TeamDeathmatchPlugin")
   }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://nexus.k9rosie.com/content/repositories/snapshots") {
+                authentication(userName: System.env.NEXUS_CREDENTIALS_USERNAME, password: System.env.NEXUS_CREDENTIALS_PASSWORD)
+            }
+            pom.version = project.version
+            pom.artifactId = project.name
+            pom.groupId = project.group
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
