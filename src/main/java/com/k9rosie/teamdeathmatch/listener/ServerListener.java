@@ -2,7 +2,9 @@ package com.k9rosie.teamdeathmatch.listener;
 
 import com.k9rosie.novswar.NovsWar;
 import com.k9rosie.novswar.event.NovsWarInitializationEvent;
+import com.k9rosie.novswar.event.NovsWarPlayerDeathEvent;
 import com.k9rosie.novswar.event.NovsWarPlayerKillEvent;
+import com.k9rosie.novswar.gamemode.Gamemode;
 import com.k9rosie.teamdeathmatch.TeamDeathmatch;
 import com.k9rosie.teamdeathmatch.TeamDeathmatchPlugin;
 import org.bukkit.event.EventHandler;
@@ -27,6 +29,20 @@ public class ServerListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onNovsWarPlayerKill(NovsWarPlayerKillEvent event) {
-        event.getKillerTeam().getNovsScore().incrementScore();
+        switch (tdm.getScoreType()) {
+            case ASCENDING:
+                event.getAttackerTeam().getNovsScore().incrementScore();
+            case DESCENDING:
+                event.getVictimTeam().getNovsScore().decrementScore();
+        }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onNovsWarPlayerDeath(NovsWarPlayerDeathEvent event) {
+        if (event.isSuicide()) {
+            if (tdm.getScoreType() == Gamemode.ScoreType.DESCENDING) {
+                event.getVictimTeam().getNovsScore().decrementScore();
+            }
+        }
     }
 }
