@@ -16,9 +16,9 @@ public class TeamDeathmatch implements Gamemode {
 
     public TeamDeathmatch(TeamDeathmatchPlugin plugin) {
         this.plugin = plugin;
-        gameTime = 120;
+        gameTime = 300;
         deathTime = 5;
-        maxScore = 3;
+        maxScore = 25;
         gamemodeName = "tdm";
         scoreType = ScoreType.DESCENDING;
     }
