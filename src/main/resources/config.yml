@@ -1,0 +1,7 @@
+starting-tickets: 100
+tickets-scales-with-player-count: true # current player count * (starting tickets/max player count) = game ticket count
+game-time: 1200
+time-scales-with-player-count: true # current player count * (game time/max player count) = game time
+tickets-lost-per-death: 1
+respawn-time: 5
+rounds: 0
