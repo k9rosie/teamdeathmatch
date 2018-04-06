@@ -60,7 +60,7 @@ public class TeamDeathmatch implements Gamemode {
         return "tdm";
     }
 
-    public NovsTeam[] getWinningTeams() {
+    public ArrayList<NovsTeam> getWinningTeams() {
         ArrayList<NovsTeam> winningTeams = new ArrayList<>();
         NovsTeam highestScore = novsWar.getGameHandler().getGame().getEnabledTeams().get(0);
         for (NovsTeam team : novsWar.getGameHandler().getGame().getEnabledTeams()) {
@@ -70,7 +70,7 @@ public class TeamDeathmatch implements Gamemode {
         }
         winningTeams.add(highestScore);
 
-        return (NovsTeam[]) winningTeams.toArray();
+        return winningTeams;
     }
 
     public NovsWar getNovsWar() {
